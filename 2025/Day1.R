@@ -1,7 +1,7 @@
 library(tidyverse)
 
 # Part 1:
-lines <- read_lines("2025/input1.txt")
+lines <- read_lines("2025/inputs/input1.txt")
 
 dial <- 50
 zeros <- 0
@@ -36,7 +36,7 @@ for (turn in lines) {
 zeros
 
 # Part 2:
-lines <- read_lines("2025/input1.txt")
+lines <- read_lines("2025/inputs/input1.txt")
 
 turn_dial <- function (turn, start) {
   dir <- str_sub(turn, start = 1, end = 1)
