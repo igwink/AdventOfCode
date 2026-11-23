@@ -1,9 +1,10 @@
-
+library(tidyverse)
 lines <- read_lines("2025/input1.txt")
 
 dial <- 50
 zeros <- 0
 counter <- 0
+
 
 for (turn in lines) {
   start_dial <- dial
@@ -16,13 +17,13 @@ for (turn in lines) {
     dial <- dial - clicks
   }
   
-  if (dial == 0 | dial == 100) {
+  if (dial %% 100 == 0) {
     zeros <- zeros + 1
     dial <- 0
   } else if (dial > 100) {
     dial <- dial %% 100
   } else if (dial < 0) {
-    dial <- 100 + dial
+    dial <- dial %% 100
   }
   
   #print(paste0(start_dial, " -> ", turn, " -> ", dial))
