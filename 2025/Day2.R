@@ -89,3 +89,47 @@ for (rang in id_ranges[[1]]) {
 }
 invalid_sum
 
+
+# Part 2: I now get to use the factor code I accidentally wrote for Part 1:
+get_factors <- function (number) {
+  digits <- str_length(format(number, scientific = FALSE))
+  factors <- as.numeric()
+  if (digits == 1) return(as.double())
+  for (num in 1:(digits - 1)) {
+    if (digits %% num == 0) {
+      factors <- c(factors, as.numeric(num))
+    }
+  }
+  factors
+}
+
+test_repeating <- function(number) {
+  factors <- get_factors(number)
+  if (length(factors) == 0) return(FALSE)
+  invalid <- FALSE
+  for (fac in factors) {
+    pattern <- str_glue(".{{{fac}}}")
+    strings <- str_extract_all(format(number, scientific = FALSE), pattern)
+    #print(strings)
+    if (n_distinct(strings[[1]]) == 1) {
+      invalid <- TRUE
+      break
+    }
+  }
+  invalid
+}
+
+id_ranges <- read_lines("2025/inputs/input2.txt") |> str_split(",")
+invalid_sum <- 0
+for (rang in id_ranges[[1]]) {
+  print(paste0("Starting range ", rang))
+  tests <- range_vector(rang)
+  for (test in tests) {
+    if (test_repeating(test)) {
+      invalid_sum <- invalid_sum + test
+      #print(paste0(test, " is invalid"))
+    }
+  }
+  print(paste0("Done with range ", rang))
+}
+invalid_sum
